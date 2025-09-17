@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.neighbors import LocalOutlierFactor
 
-for fileName in ['no outliers.txt','with outliers.txt']: # Example files used for input; feel free to
+for fileName in ['no outliers.txt','with outliers.txt']: # Example files used for input; feel free to change
     # Reading Input
     with open(fileName, "r") as file: # inferences.txt is the 'with outliers.txt' file and used as an example
         file.readline() # Skips first line because it isn't needed
