@@ -21,7 +21,7 @@ for fType in ["train", "val"]:
     os.makedirs(os.path.join(labelDir, fType), exist_ok=True)
 
 # Vars
-trainProb = 0.8 # 80:20 ratio for training and validating
+trainProb = 0.8 # 80/20 training/validating split
 sizeMin = 50 # ODLC size range in pixels
 sizeMax = 150
 blankProb = 0.2 # Probability to not generate ODLC
