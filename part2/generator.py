@@ -29,10 +29,6 @@ blankProb = 0.2 # Probability to not generate ODLC
 # Storing Images in List
 imgs = []
 for file in os.listdir(imgDir):
-    # oldPath = os.path.join(imgDir, file)
-    # newFileName = file.replace(" ", "_") # Gets rid of spaces in filenames
-    # newPath = os.path.join(imgDir, newFileName) 
-    # # os.rename(oldPath, newPath)
     imgs.append(file)
 imgCount = 0
 # Creating ODLC Images/Labels
