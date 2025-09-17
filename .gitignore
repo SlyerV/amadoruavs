@@ -3,7 +3,3 @@ dataset/
 *.png
 *.jpg
 *.jpeg
-
-runs/
-yolov8_train/
-yolov8_results/
