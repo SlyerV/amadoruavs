@@ -1,24 +1,32 @@
 # Imports
 import numpy as np
 from sklearn.cluster import KMeans
+from sklearn.neighbors import LocalOutlierFactor
 
-# Reading Input
-with open("inferences.txt", "r") as file: # inferences.txt is the 'with outliers.txt' file and used as an example
-    file.readline() # Skips first line because it isn't needed
-    coords = []
-    for line in file:
-        lat, lon = map(float, line.split()) # Converts coordinates from strings to floats
-        coords.append([lat, lon])
-    coords = np.array(coords) # Converts coords to NumPy array for fast clustering
+for fileName in ['no outliers.txt','with outliers.txt']: # Example files used for input; feel free to
+    # Reading Input
+    with open(fileName, "r") as file: # inferences.txt is the 'with outliers.txt' file and used as an example
+        file.readline() # Skips first line because it isn't needed
+        coords = []
+        for line in file:
+            lat, lon = map(float, line.split()) # Converts coordinates from strings to floats
+            coords.append([lat, lon])
+        coords = np.array(coords) # Converts coords to NumPy array for fast clustering
 
-# Creating Clustering Model
-kmeans = KMeans(n_clusters=5, random_state=0, n_init='auto').fit(coords)
+    # Filtering Outliers
+    lof = LocalOutlierFactor(n_neighbors=5, contamination='auto')
+    prediction = lof.fit_predict(coords)
+    coords = coords[prediction == 1] # Filters out coordinates that are predicted to be outliers
 
-# Finding/Sorting Centroids
-centroids = kmeans.cluster_centers_ 
-latitudes = centroids[:,0] # Takes first column of all rows
-centroids = centroids[latitudes.argsort()]  # Sorts by ascending latitude
+    # Creating Clustering Model
+    kmeans = KMeans(n_clusters=5, random_state=0, n_init='auto').fit(coords)
 
-# Output
-for c in centroids:
-    print(round(c[0], 5), round(c[1], 5)) # Rounds to 5 decimal places
+    # Finding/Sorting Centroids
+    centroids = kmeans.cluster_centers_ 
+    latitudes = centroids[:,0] # Takes first column of all rows
+    centroids = centroids[latitudes.argsort()]  # Sorts by ascending latitude
+
+    # Output
+    for c in centroids:
+        print(round(c[0], 5), round(c[1], 5)) # Rounds to 5 decimal places
+    print() # New line to create space for future outputs
