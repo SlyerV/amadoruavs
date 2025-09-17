@@ -4,9 +4,21 @@ import random
 from PIL import Image, ImageDraw
 
 
-# Creating Absolute Path (so that it works wherever you run the code from)
+# Creating Absolute Paths (so that it works wherever you run the code from)
+# Creating dataset directory with subfolders (images/train, images/val, labels/train, labels/val)
 baseDir = os.path.dirname(os.path.abspath(__file__))
 imgDir = os.path.join(baseDir, 'images')
+datasetDir = os.path.join(baseDir, "dataset")
+dataImgDir = os.path.join(datasetDir, "images")
+labelDir = os.path.join(datasetDir, "labels")
+
+os.makedirs(datasetDir, exist_ok=True)
+os.makedirs(dataImgDir, exist_ok=True)
+os.makedirs(labelDir, exist_ok=True)
+
+for fType in ["train", "val"]:
+    os.makedirs(os.path.join(dataImgDir, fType), exist_ok=True)
+    os.makedirs(os.path.join(labelDir, fType), exist_ok=True)
 
 # Vars
 trainProb = 0.8 # 80:20 ratio for training and validating
